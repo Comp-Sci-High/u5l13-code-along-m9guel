@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express");
+const req = require("express/lib/request");
 
 const app = express();
 
@@ -68,11 +69,30 @@ app.post("/add/teacher", async (req, res) => {
 });
 
 // Create a dynamic delete route to remove a teacher by their ID
+app.delete("/teachers/:id", async (req,res)=>{
+const pres = await Teacher.findOneAndDelete({_id: req.params.id})
+res.json(pres)
+})
 
+// Add a PATCH route to update a teacher by their ID
+app.patch("/teachers/:id", async (req, res) => {
+  const updatedTeacher = await Teacher.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  res.json(updatedTeacher);
+});
+
+// Rating patch route to update a rating by its ID
+
+app.patch("/ratings/:id", async (req, res) => {
+ const updatedRating = await Rating.findByIdAndUpdate(req.params.id, req.body, { new: true });
+ res.json(updatedRating);
+});
 
 
 // Create a dynamic delete route to remove a rating by it's ID
-  
+  app.delete("/ratings/:id", async (req,res)=>{
+  const pres = await Rating.findOneAndDelete({_id: req.params.id}) 
+    res.json(pres)
+  })
  
 
 async function startServer() {
@@ -81,7 +101,7 @@ async function startServer() {
   );
 
   app.listen(3000, () => {
-    console.log(`Server running.`);
+    console.log("Server running");
   });
 }
 

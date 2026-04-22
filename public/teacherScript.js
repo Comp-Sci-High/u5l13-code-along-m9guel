@@ -21,3 +21,25 @@ form.addEventListener("submit", async (e) => {
 
 // write the async function deleteTeacher
 // make sure it redirects to / after
+
+async function deleteTeacher(id){
+await fetch('/teachers/' + id, {method: "DELETE"});
+window.location.href = "/"
+}
+
+// Add the async function updateTeacher
+async function updateTeacher(event, id) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const req = Object.fromEntries(formData);
+  const response = await fetch(/teachers/${id}, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(req)
+  });
+  const data = await response.json();
+  console.log(data);
+  window.location.href = "/";
+}

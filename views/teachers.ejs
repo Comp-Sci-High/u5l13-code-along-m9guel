@@ -47,6 +47,21 @@
             <p><strong>Department:</strong> <%= teachers[i].department %></p>
             <!-- Add a button that calls a deleteTeacher function with their id passed as input -->
              
+           <button onclick="deleteTeacher('<%= teachers[i]._id %>')">Delete Teacher</button>
+
+           <!-- Add an update form for the teacher -->
+           <form onsubmit="updateTeacher(event, '<%= teachers[i]._id %>')">
+             <label>Name: </label>
+             <input type="text" name="name" value="<%= teachers[i].name %>" required />
+
+             <label>Department: </label>
+             <input type="text" name="department" value="<%= teachers[i].department %>" />
+
+             <label>Image: </label>
+             <input type="text" name="image" value="<%= teachers[i].image %>" />
+
+             <button type="submit">Update Teacher</button>
+           </form>
           </div>
         </div>
       <% } %>
